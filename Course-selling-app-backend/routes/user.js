@@ -12,4 +12,18 @@ router.post('/signup', (req, res) => {
     });
 });
 
+router.get('/', (req, res) => {
+    const query = 'SELECT * FROM users';
+    db.query(query, (err, results) => {
+        let html = '<h1>Users List</h1><ul>';
+        results.forEach(user => {
+            html += `<li>${user.name} (${user.email})</li>`;
+        });
+        html += '</ul>';
+        res.send(html);
+    });
+});
+
+
+
 module.exports = router;

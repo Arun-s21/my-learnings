@@ -13,4 +13,16 @@ router.post('/signup', (req, res) => {
     });
 });
 
+router.get('/', (req, res) => {
+    const query = 'SELECT * FROM admins';
+    db.query(query, (err, results) => {
+        let html = '<h1>Admins List</h1><ul>';
+        results.forEach(admin => {
+            html += `<li>${admin.name} (${admin.email})</li>`;
+        });
+        html += '</ul>';
+        res.send(html);
+    });
+});
+
 module.exports = router;

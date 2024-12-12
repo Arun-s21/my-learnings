@@ -27,8 +27,13 @@ router.delete('/:id', (req, res) => {
 router.get('/', (req, res) => {
     const query = 'SELECT * FROM courses';
     db.query(query, (err, results) => {
-        
-        res.status(200).json({ courses: results });
+       
+        let html = '<h1>Available Courses</h1><ul>';
+        results.forEach(course => {
+            html += `<li>${course.title} - $${course.price}<br>${course.description}</li>`;
+        });
+        html += '</ul>';
+        res.send(html);
     });
 });
 
